@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Management - RC Apparel Co.</title>
+    <style>
+        body {
+            background-color: #78866B;
+            color: black;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+        }
+
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: black;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: white;
+            color: black;
+        }
+		 .store-logo {
+            height: 150px;
+            width: 300px;
+            margin-right: 10px;
+        }
+		.store-header h1 {
+            color: white;
+            margin: 0;
+        }
+		  .store-header {
+            text-align: center;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+        }
+		
+		.back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+  <div class="store-header">
+        <img class="store-logo" src="logo.jpg" alt="Store Logo">
+        <h1>RC Apparel Co.</h1>
+    </div>
+    <h1>Stock Management</h1>
+
+    <div>
+        <form id="replenishForm">
+            <label for="itemName">Item Name:</label>
+            <select id="itemName">
+          
+            </select><br><br>
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" min="1"><br><br>
+            <button type="submit">Add Stock</button>
+        </form>
+    </div>
+
+    <div class="back-link">
+        <a href="store1.html">Back to Homepage</a>
+    </div>
+
+    <script>
+       
+        const itemStock = {
+            'Jeans Black': 10,
+            'Jeans Blue': 8,
+            'Jeans White': 6,
+            'Jeans Green': 12,
+            'Plain White Shirt': 15,
+            'Black Shirt': 20,
+            'Blue Shirt': 18,
+            'Striped Shirt': 10,
+            'White Sando': 25,
+            'Black Sando': 20,
+            'Gray Sando': 20,
+            'Red Sando': 15,
+            'Bvlgari': 5,
+            'Dolce & Gabanna': 7,
+            'Gucci Perfume': 4,
+            'Dior': 6,
+            'Lego': 30,
+            'Trucks': 25,
+            'Basketball': 20,
+            'Cars': 35
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const itemNameDropdown = document.getElementById("itemName");
+
+          
+            for (const itemName in itemStock) {
+                const option = document.createElement("option");
+                option.text = itemName;
+                itemNameDropdown.add(option);
+            }
+
+           
+            const replenishForm = document.getElementById("replenishForm");
+            replenishForm.addEventListener("submit", (event) => {
+                event.preventDefault();
+
+                const itemName = itemNameDropdown.value;
+                const quantity = parseInt(document.getElementById("quantity").value);
+
+                if (!itemName || isNaN(quantity) || quantity <= 0) {
+                    alert("Please select an item and enter a valid quantity.");
+                    return;
+                }
+
+                
+                itemStock[itemName] += quantity;
+                alert(`Stock added for ${itemName}. New stock: ${itemStock[itemName]}`);
+
+               
+                replenishForm.reset();
+            });
+        });
+    </script>
+
+</body>
+</html>

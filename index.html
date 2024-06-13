@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camacho Activity Portfolio</title>
+ 
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      background-image: url('background.gif');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      font-family: 'Open Sans', sans-serif;
+    }
+    .navbar {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    .navbar-brand {
+      color: #fff;
+      font-size: 24px;	
+      font-weight: 700;
+    }
+    .navbar-nav .nav-link {
+      color: #fff;
+      font-size: 18px;
+    }
+    .navbar-nav .nav-link:not(.glow) {
+      text-shadow: none;
+    }
+    .jumbotron {
+      background-image: url('mainbg.gif'); 
+      background-size: cover;
+      background-position: center;
+      padding: 3rem;
+	  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+      text-align: center;
+      border-radius: 10px;
+      margin-bottom: 3rem;
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5); 
+    }
+    .activity-card {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      padding: 2rem;
+      text-align: center;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      height: 90%;
+      color: white;
+    }
+    .activity-card:hover {
+      transform: translateY(-20px);
+      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5); 
+    }
+    .activity-card img {
+      border-radius: 10px;
+      opacity: 0.7;
+    }
+    .activity-label {
+      font-size: 20px;
+      margin-top: 1rem;
+      font-weight: 600;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.7); /* Add glow effect to text */
+    }
+    .activity-link {
+      color: inherit;
+      text-decoration: none;
+    }
+    @media (max-width: 768px) {
+      .navbar-nav .nav-link {
+        font-size: 16px;
+      }
+      .activity-label {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <a class="navbar-brand" href="#">RUSSEL CAMACHO</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link glow" href="Resume.html">Resume</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link glow" href="Menu.html">Restaurant Menu</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link glow" href="COR.html">Certificate of Registration</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link glow" href="store1.html">Sari-Sari Store</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <div class="jumbotron">
+    <h1 class="display-4">Welcome to my Portfolio!</h1>
+    <p class="lead">Explore my Activities.</p>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <a href="Resume.html" class="activity-link">
+        <div class="activity-card">
+          <img src="resumeimage.jpg" class="img-fluid" alt="Resume">
+          <p class="activity-label">Resume</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-6 mb-4">
+      <a href="Menu.html" class="activity-link">
+        <div class="activity-card">
+          <img src="menuimage.jpg" class="img-fluid" alt="Restaurant Menu">
+          <p class="activity-label">Restaurant Menu</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-6 mb-4">
+      <a href="COR.html" class="activity-link">
+        <div class="activity-card">
+          <img src="CORimage.jpg" class="img-fluid" alt="Certificate of Registration">
+          <p class="activity-label">Certificate of Registration</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-6 mb-4">
+      <a href="store1.html" class="activity-link">
+        <div class="activity-card">
+          <img src="storeimage.jpg" class="img-fluid" alt="Sari-Sari Store">
+          <p class="activity-label">Sari-Sari Store</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

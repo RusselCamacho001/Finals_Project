@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Dashboard</title>
+	
+    <style>
+        body {
+            font-family: 'Times New Roman', Times serif;
+            background-image: url('bg.jpg') ;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        .dashboard {
+            background-color: purple;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            opacity: 0.9;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 1000px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .menu-container {
+            flex: 1;
+            margin-right: 20px;
+        }
+        .order-container {
+            flex: 1;
+        }
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .dashboard-description {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .dashboard-buttons {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.dashboard-buttons div {
+    margin-top: 10px;
+}
+
+.dashboard-buttons button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    background-color: white;
+    color: purple;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dashboard-buttons button:hover {
+    background-color: purple;
+    color: white;
+}
+
+        }
+        .category-button {
+            margin-right: 10px;
+            padding: 10px 10px;
+            background	-color: white;
+            color: purple;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .menu-item {
+            margin-bottom: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        .menu-item img {
+            width: 100px;
+            height: 100px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .menu-item h4 {
+            display: inline;
+            color: white;
+        }
+        .menu-item p {
+            margin-right: 10px;
+        }
+        .menu-item input {
+            margin-right: 10px;
+        }
+        .menu-item button {
+            background-color: white;
+            color: purple;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .menu-item:hover {
+            background-color: gray;
+        }
+        .category-button:hover {
+            background-color: black;
+            color: white;
+        }
+        .order-list {
+            list-style-type: none;
+            padding-left: 0;
+            text-align: left;
+			
+        }
+        .order-list-container {
+            background-image: url('haha.jpg'); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: white; 
+        }
+        
+        .order-container button {
+            background-color: white;
+            color: purple;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 1px;
+        }
+		.back-link {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background-color: white;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+        }
+		.back-link:hover {
+            background-color: #663399;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+       
+        <div class="menu-container">
+            <h1 class="dashboard-header">
+                <img src="logo.png" alt="Shineboi's Restaurant Logo" style="width: 100px; height: auto; margin-right: 10px;">
+                Shineboi`s Restaurant Menu
+            </h1>
+			
+            <p class="dashboard-description">Please select a category to view our products:</p>
+            <div class="dashboard-buttons">
+                <button class="category-button" onclick="toggleCategory('main-dishes')">Main Dishes</button>
+                <button class="category-button" onclick="toggleCategory('vegetable-dishes')">Vegetables</button>
+                <button class="category-button" onclick="toggleCategory('desserts')">Desserts</button>
+                <button class="category-button" onclick="toggleCategory('drinks')">Drinks</button>
+                <button class="category-button" onclick="toggleCategory('addons')">Addons</button>
+            </div>
+            
+            <div class="menu-item main-dishes">
+                <img src="2.jpeg" alt="Main Dish 1">
+                <h4>Adobong Manok sa Gata</h4>
+                <p>P350</p>
+				<input type="checkbox" class="item-checkbox">
+                <input type="number" class="quantity-input" value="0" max="10">
+                <button onclick="addItem('Adobong Manok sa Gata', 350)">Add Item</button>
+            </div>
+            <div class="menu-item main-dishes">
+                <img src="3.jpeg" alt="Main Dish 2">
+                <h4>Grilled Tilapia</h4>
+                <p>P200</p>
+				  <input type="checkbox" class="item-checkbox">
+                <input type="number" class="quantity-input" value="0" max="10">
+                <button onclick="addItem('Grilled Tilapia', 200)">Add Item</button>
+            </div>
+            <div class="menu-item main-dishes">
+                <img src="4.jpeg" alt="Main Dish 3">
+                <h4>Bulalo</h4>
+                <p>P400</p>
+				<input type="checkbox" class="item-checkbox">
+                <input type="number" class="quantity-input" value="0" max="10">
+                <button onclick="addItem('Bulalo', 400)">Add Item</button>
+            </div>
+            <div class="menu-item main-dishes">
+                <img src="5.jpeg" alt="Main Dish 4">
+                <h4>Sinigang na Hipon</h4>
+                <p>P350</p>
+				<input type="checkbox" class="item-checkbox">
+                <input type="number" class="quantity-input" value="0" max="10">
+                <button onclick="addItem('Sinigang na Hipon', 350)">Add Item</button>
+            </div>
+            <div class="menu-item main-dishes">
+                <img src="6.jpeg" alt="Main Dish 5">
+                <h4>Lechon Manok</h4>
+                <p>P250</p>
+				 <input type="checkbox" class="item-checkbox">
+                <input type="number" class="quantity-input" value="0" max="10">
+                <button onclick="addItem('Lechon Manok', 250)">Add Item</button>
+            </div>
+
+          
+            <div class="menu-item vegetable-dishes" style="display: none;">
+                <img src="7.jpeg" alt="Vegetable Dish 1">
+                <h4>Kale Salad</h4>
+                <p>P200</p>
+				<input type="checkbox" class="item-checkbox">
+                <input type="number" class="quantity-input" value="0" max="10">
+                <button onclick="addItem('Kale Salad', 200)">Add Item</button>
+            </div>
+            <div class="menu-item vegetable-dishes" style="display: none;">
+                <img src="8.jpeg" alt="Vegetable Dish 2">
+                <h4>Vegetable Ukoy</h4>
+                <p>P125</p>
+				 <input type="checkbox" class="item-checkbox">
+                <input type="number" class="quantity-input" value="0" max="10">
+                <button onclick="addItem('Vegetable Ukoy', 125)">Add Item</button>
+            </div>
+            <div class="menu-item vegetable-dishes" style="display: none;">
+                <img src="9.jpeg" alt="Vegetable Dish 3">
+                <h4>Veggie Lasagna</h4>
+                <p>P175</p>
+				<input type="checkbox" class="item-checkbox">
+                <input type="number" class="quantity-input" value="0" max="10">
+                <button onclick="addItem('Veggie Lasagna', 175)">Add Item</button>
+            </div>
+
+           
+            <div class="menu-item desserts" style="display: none;">
+                <img src="12.jpeg" alt="Dessert 1">
+                <h4>Leche Flan</h4>
+                <p>P75</p>
+				<input type="checkbox" class="item-checkbox">
+                <input type="number" class="quantity-input" value="0" max="10">
+                <button onclick="addItem('Leche Flan', 75)">Add Item</button>
+            </div>
+            <div class="menu-item desserts" style="display: none;">               
+                <img src="13.jpeg" alt="Dessert 2">
+                <h4>Puto Bumbong</h4>
+                <p>P45</p>
+				 <input type="checkbox" class="item-checkbox">
+                <input type="number" class="quantity-input" value="0" max="10">
+                <button onclick="addItem('Puto Bumbong', 45)">Add Item</button>
+            </div>
+            <div class="menu-item desserts" style="display: none;">              
+                <img src="14.jpeg" alt="Dessert 3">
+                <h4>Sapin Sapin</h4>
+                <p>P55</p>
+				 <input type="checkbox" class="item-checkbox">
+                <input type="number" class="quantity-input" value="0" max="10">
+                <button onclick="addItem('Sapin Sapin', 55)">Add Item</button>
+            </div>
+
+           
+            <div class="menu-item drinks" style="display: none;">
+                <img src="10.jpeg" alt="Drink 1">
+                <h4>Strawberry Shake</h4>
+                <p>P125</p>
+			 <input type="checkbox" class="item-checkbox">
+                <input type="number" class="quantity-input" value="0" max="10">
+                <button onclick="addItem('Strawberry Shake', 125)">Add Item</button>
+            </div>
+            <div class="menu-item drinks" style="display: none;">
+                <img src="11.jpeg" alt="Drink 2">
+                <h4>Orange Juice</h4>
+                <p>P70</p>
+			    <input type="checkbox" class="item-checkbox">
+                <input type="number" class="quantity-input" value="0" max="10">
+                <button onclick="addItem('Orange Juice', 70)">Add Item</button>
+            </div>
+            <div class="menu-item drinks" style="display: none;">             
+                <img src="16.jpg" alt="Drink 3">
+                <h4>Iced Coffee</h4>
+                <p>P100</p>
+				 <input type="checkbox" class="item-checkbox">
+                <input type="number" class="quantity-input" value="0" max="10">
+                <button onclick="addItem('Iced Coffee', 100)">Add Item</button>
+            </div>
+			 <div class="menu-item drinks" style="display: none;">             
+                <img src="20.jpeg" alt="Drink 4">
+                <h4>Service Water</h4>
+                <p>P0.00</p>
+				 <input type="checkbox" class="item-checkbox">
+                <input type="number" class="quantity-input" value="0" max="10">
+                <button onclick="addItem('Service Water', 0)">Add Item</button>
+            </div>
+
+            <div class="menu-item addons" style="display: none;">                
+                <img src="water.jpg" alt="Addon 1">
+                <h4>Bottled Water</h4>
+                <p>P20</p>
+				<input type="checkbox" class="item-checkbox">				
+                <input type="number" class="quantity-input" value="0" max="10">
+                <button onclick="addItem('Bottled Water', 20)">Add Item</button>
+            </div>
+            <div class="menu-item addons" style="display: none;">
+                <img src="15.jpeg" alt="Addon 2">
+                <h4>Rice</h4>
+                <p>P20</p>
+				<input type="checkbox" class="item-checkbox">
+                <input type="number" class="quantity-input" value="0" max="10">
+                <button onclick="addItem('Rice', 20)">Add Item</button>
+            </div>
+            <div class="menu-item addons" style="display: none;">
+                <img src="17.jpg" alt="Addon 3">
+                <h4>Egg</h4>
+                <p>P25</p>
+				<input type="checkbox" class="item-checkbox">
+                <input type="number" class="quantity-input" value="0" max="10">
+                <button onclick="addItem('Egg', 25)">Add Item</button>
+            </div>
+        </div>
+
+      <div class="order-container">
+    <div class="dashboard-description order-list-container">
+        <p>Orders:</p>
+        <ul class="order-list" id="orderList"></ul>
+        <p>Total Price: <span id="totalOrder">P0</span></p>
+    </div>
+    <div class="dashboard-buttons">
+        <div>
+            <button onclick="calculateTotalOrder()"><h4>Orders List</h4></button>
+        </div>
+        <div>
+           <h3>WARNING!!!</h3>
+		   <p>Please click the button that is only applicable for you.</p>
+			<p>If you clicked the wrong button please reload this page and reorder.</p>
+			<button onclick="applyDiscount('PWD')">PWD Discount 15%</button>
+            <button onclick="applyDiscount('Senior')">Senior Citizen Discount 10%</button>
+            <button onclick="applyDiscount('Regular')">Student 10%</button>
+        </div>
+    </div>
+</div>
+ <div class="back-link">
+        <a href="index.html">Back to Website</a>
+    </div>
+
+
+    <script>
+     var orders = [];
+var discountRates = {
+    'PWD': 0.15, //
+    'Senior': 0.10, 
+    'Regular': 0.10
+};
+var customerType = ''; 
+
+function applyDiscount(customerType) {
+    var discountRate = discountRates[customerType];
+    if (discountRate) {
+        orders.forEach(function(order) {
+            order.price *= (1 - discountRate); 
+        });
+        updateOrderList();
+    } else {
+        console.error('Invalid customer type for discount.');
+    }
+}
+
+function toggleCategory(category) {
+    var dishes = document.getElementsByClassName('menu-item');
+    for (var i = 0; i < dishes.length; i++) {
+        if (dishes[i].classList.contains(category)) {
+            dishes[i].style.display = "block";
+        } else {
+            dishes[i].style.display = "none";
+        }
+    }
+}
+
+function addItem(itemName, price) {
+    var quantityInput = event.target.previousElementSibling;
+    var quantity = parseInt(quantityInput.value);
+    var checkbox = event.target.parentElement.querySelector('.item-checkbox');
+    if (checkbox.checked && quantity > 0) {
+        orders.push({
+            name: itemName,
+            price: price,
+            quantity: quantity
+        });
+        quantityInput.value = 0;
+        checkbox.checked = false;
+        updateOrderList();
+    }
+}
+
+function updateOrderList() {
+    var orderList = document.getElementById('orderList');
+    orderList.innerHTML = '';
+
+    var total = 0;
+    orders.forEach(function(order) {
+        var discountedPrice = order.price * order.quantity;
+
+        // Apply discount if applicable
+        if (discountRates.hasOwnProperty(customerType)) {
+            var discountRate = discountRates[customerType];
+            discountedPrice *= (1 - discountRate);
+        }
+
+        var listItem = document.createElement('li');
+        listItem.innerText = `${order.name} - Total Items: ${order.quantity} = P${discountedPrice.toFixed(2)}`;
+        orderList.appendChild(listItem);
+        total += discountedPrice;
+    });
+
+    document.getElementById('totalOrder').innerText = 'P' + total.toFixed(2);
+}
+
+function calculateTotalOrder() {
+    updateOrderList();
+}
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RC Apparel Co.</title>
+    <style>
+        body {
+            background-color: #78866B;
+            color: black;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .store-header {
+            text-align: center;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+        }
+
+        .store-logo {
+            height: 150px;
+            width: 300px;
+            margin-right: 10px;
+        }
+
+        .store-header h1 {
+            color: white;
+            margin: 0;
+        }
+
+        .layout {
+            display: flex;
+        }
+
+        .left-container {
+            flex: 2;
+            padding-right: 20px;
+        }
+
+        .right-container {
+            flex: 1;
+            border-left: 2px solid black;
+            padding-left: 20px;
+        }
+
+        .category-buttons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .category-buttons button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .category-buttons button:hover {
+            background-color: white;
+            color: black;
+        }
+
+        .store-container {
+            display: none;
+        }
+
+        .store-item {
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            margin: 10px;
+            background-color: white;
+        }
+
+        .store-item img {
+            max-width: 100px;
+            border-radius: 5px;
+        }
+
+        .store-item h3 {
+            color: black;
+        }
+
+        .store-item p {
+            margin: 5px 0;
+        }
+
+        .store-item button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .stock-status {
+            color: green;
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        .cart {
+            border: 2px solid black;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: left;
+            background-color: white;
+        }
+
+        .cart h3 {
+            color: black;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+        }
+
+        .cart-item button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .order-list {
+            border: 2px solid black;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+            background-color: white;
+        }
+
+        .checkout {
+            border: 2px solid black;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: white;
+        }
+
+        .checkout h3 {
+            color: black;
+        }
+
+        .checkout input {
+            border: 1px solid black;
+            padding: 5px;
+            border-radius: 5px;
+            width: 70%;
+            margin-bottom: 10px;
+        }
+
+        .checkout button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+		.cart,
+.order-summary {
+    margin-bottom: 20px;
+}
+
+.order-summary {
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.order-summary h2 {
+    margin-top: 0;
+}
+.back-link {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background-color: white;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+        }
+		.back-link:hover {
+            background-color: #663399;
+        }
+    </style>
+
+    <script>
+        let cart = [];
+
+        const itemStock = {
+            'Jeans Black': 10,
+            'Jeans Blue': 8,
+            'Jeans White': 6,
+            'Jeans Green': 12,
+            'Plain White Shirt': 15,
+            'Black Shirt': 20,
+            'Blue Shirt': 18,
+            'Striped Shirt': 10,
+            'White Sando': 25,
+            'Black Sando': 20,
+            'Gray Sando': 20,
+            'Red Sando': 15,
+            'Bvlgari': 5,
+            'Dolce & Gabanna': 7,
+            'Gucci Perfume': 4,
+            'Dior': 6,
+            'Lego': 30,
+            'Trucks': 25,
+            'Basketball': 20,
+            'Cars': 35
+        };
+
+       function addToCart(itemName, itemPrice, quantity) {
+            const stock = itemStock[itemName];
+            if (stock >= quantity) {
+                const item = cart.find(i => i.name === itemName);
+                if (item) {
+                    item.quantity += quantity;
+                } else {
+                    cart.push({ name: itemName, price: itemPrice, quantity });
+                }
+                itemStock[itemName] -= quantity;
+                updateCart();
+                updateOrderList();
+            } else {
+                alert('Sorry, not enough stock.');
+            }
+        }
+
+        function removeFromCart(itemName, quantity = 1) {
+            const itemIndex = cart.findIndex(i => i.name === itemName);
+            if (itemIndex > -1) {
+                const item = cart[itemIndex];
+                item.quantity -= quantity;
+                if (item.quantity <= 0) {
+                    cart.splice(itemIndex, 1);
+                }
+                itemStock[itemName] += quantity;
+                updateCart();
+                updateOrderList();
+            }
+        }
+
+        function updateCart() {
+            const cartList = document.getElementById("cart-list");
+            cartList.innerHTML = "";
+
+            let totalItems = 0;
+            let totalPrice = 0;
+
+            cart.forEach((item) => {
+                totalItems += item.quantity;
+                totalPrice += item.price * item.quantity;
+
+                const cartItem = document.createElement("div");
+                cartItem.className = "cart-item";
+                cartItem.innerHTML = `
+                    ${item.name} x ${item.quantity} - P${(item.price * item.quantity).toFixed(2)}
+                    <button onclick="removeFromCart('${item.name}')">Remove</button>
+                `;
+                cartList.appendChild(cartItem);
+            });
+
+            document.getElementById("total-items").innerText = totalItems;
+            document.getElementById("total-price").innerText = totalPrice.toFixed(2);
+        }
+
+        function updateOrderList() {
+            const orderList = document.getElementById("order-list");
+            orderList.innerHTML = "";
+
+            cart.forEach((item) => {
+                const orderItem = document.createElement("div");
+                orderItem.className = "order-item";
+                orderItem.innerText = `${item.name} x ${item.quantity}`;
+                orderList.appendChild(orderItem);
+            });
+        }
+
+       const discounts = {
+            'none': 0,
+            'pwd': 10, // 10% discount for PWD
+            'senior': 15, // 15% discount for Senior Citizen
+            'student': 5 // 5% discount for Students
+        };
+
+        let selectedDiscount = 'none';
+
+        function applyDiscount(totalPrice) {
+            const discountPercentage = discounts[selectedDiscount];
+            const discountedPrice = totalPrice - (totalPrice * (discountPercentage / 100));
+            return discountedPrice;
+        }
+
+        function updateSelectedDiscount() {
+            selectedDiscount = document.getElementById("discount").value;
+        }
+
+        function checkout() {
+            const paidAmount = parseFloat(document.getElementById("paidAmount").value);
+            let totalPrice = parseFloat(document.getElementById("total-price").innerText);
+
+            if (paidAmount < totalPrice) {
+                alert('Insufficient Amount.');
+                return;
+            }
+
+            totalPrice = applyDiscount(totalPrice);
+
+            const change = paidAmount - totalPrice;
+            alert(`Total Change: P${change.toFixed(2)}.`);
+
+            cart = [];
+            updateCart();
+            updateOrderList();
+        }
+
+        function showCategory(category) {
+            const containers = document.querySelectorAll(".store-container");
+            containers.forEach(container => container.style.display = "none");
+
+            const selectedContainer = document.getElementById(category);
+            if (selectedContainer) {
+                selectedContainer.style.display = "block";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            showCategory("jeans");
+        });
+    </script>
+    </script>
+</head>
+<body>
+
+    <div class="store-header">
+        <img class="store-logo" src="logo.jpg" alt="Store Logo">
+        <h1>RC Apparel Co.</h1>
+    </div>
+
+    <div class="layout">
+        <div class="left-container">
+            <div class="category-buttons">
+                <button onclick="showCategory('jeans')">Jeans</button>
+                <button onclick="showCategory('tshirt')">T-Shirts</button>
+                <button onclick="showCategory('sando')">Sando</button>
+                <button onclick="showCategory('perfume')">Perfume</button>
+                <button onclick="showCategory('toys')">Toys</button>
+            </div>
+
+            <div id="jeans" class="store-container">
+                <div class="store-item">
+                    <img src="11.jpg" alt="Jeans Black">
+                    <h3>Jeans Black</h3>
+                    <p>P1000.00</p>
+                 
+                    <input type="number" value="1" min="1" max="10" id="Jeans Black-quantity" style="width: 50px;">
+                    <button onclick="addToCart('Jeans Black', 1000, parseInt(document.getElementById('Jeans Black-quantity').value))">Add to Cart</button>
+                </div>
+                <div class="store-item">
+                    <img src="22.jpg" alt="Jeans Blue">
+                    <h3>Jeans Blue</h3>
+                    <p>P1050.00</p>
+                    
+                    <input type="number" value="1" min="1" max="8" id="Jeans Blue-quantity" style="width: 50px;">
+                    <button onclick="addToCart('Jeans Blue', 1050, parseInt(document.getElementById('Jeans Blue-quantity').value))">Add to Cart</button>
+                </div>
+                <div class="store-item">
+                    <img src="33.png" alt="Jeans White">
+                    <h3>Jeans White</h3>
+                    <p>P1100.00</p>
+                
+                    <input type="number" value="1" min="1" max="6" id="Jeans White-quantity" style="width: 50px;">
+                    <button onclick="addToCart('Jeans White', 1100, parseInt(document.getElementById('Jeans White-quantity').value))">Add to Cart</button>
+                </div>
+                <div class="store-item">
+                    <img src="44.jpg" alt="Jeans Green">
+                    <h3>Jeans Green</h3>
+                    <p>P1250.00</p>
+                   
+                    <input type="number" value="1" min="1" max="12" id="Jeans Green-quantity" style="width: 50px;">
+                    <button onclick="addToCart('Jeans Green', 1250, parseInt(document.getElementById('Jeans Green-quantity').value))">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- T-Shirts -->
+            <div id="tshirt" class="store-container">
+                <div class="store-item">
+                    <img src="55.jpg" alt="Plain White Shirt">
+                    <h3>Plain White Shirt</h3>
+                    <p>P300.00</p>
+                   
+                    <input type="number" value="1" min="1" max="15" id="Plain White Shirt-quantity" style="width: 50px;">
+                    <button onclick="addToCart('Plain White Shirt', 300, parseInt(document.getElementById('Plain White Shirt-quantity').value))">Add to Cart</button>
+                </div>
+                <div class="store-item">
+                    <img src="66.png" alt="Black Shirt">
+                    <h3>Black Shirt</h3>
+                    <p>P350.00</p>
+                    
+                    <input type="number" value="1" min="1" max="20" id="Black Shirt-quantity" style="width: 50px;">
+                    <button onclick="addToCart('Black Shirt', 350, parseInt(document.getElementById('Black Shirt-quantity').value))">Add to Cart</button>
+                </div>
+                <div class="store-item">
+                    <img src="77.jpg" alt="Blue Shirt">
+                    <h3>Blue Shirt</h3>
+                    <p>P300.00</p>
+                 
+                    <input type="number" value="1" min="1" max="18" id="Blue Shirt-quantity" style="width: 50px;">
+                    <button onclick="addToCart('Blue Shirt', 300, parseInt(document.getElementById('Blue Shirt-quantity').value))">Add to Cart</button>
+                </div>
+                <div class='store-item'>
+                    <img src="88.jpg" alt="Striped Shirt">
+                    <h3>Striped Shirt</h3>
+                    <p>P450.00</p>
+                   
+                    <input type="number" value="1" min="1" max="10" id="Striped Shirt-quantity" style="width: 50px;">
+                    <button onclick="addToCart('Striped Shirt', 450, parseInt(document.getElementById('Striped Shirt-quantity').value))">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Sando -->
+            <div id="sando" class="store-container">
+                <div class="store-item">
+                    <img src="99.jpg" alt="White Sando">
+                    <h3>White Sando</h3>
+                    <p>P150.00</p>
+                   
+                    <input type="number" value="1" min="1" max="25" id="White Sando-quantity" style="width: 50px;">
+                    <button onclick="addToCart('White Sando', 150, parseInt(document.getElementById('White Sando-quantity').value))">Add to Cart</button>
+                </div>
+                <div class="store-item">
+                    <img src="100.jpg" alt="Black Sando">
+                    <h3>Black Sando</h3>
+                    <p>P200.00</p>
+                   
+                    <input type="number" value="1" min="1" max="20" id="Black Sando-quantity" style="width: 50px;">
+                    <button onclick="addToCart('Black Sando', 200, parseInt(document.getElementById('Black Sando-quantity').value))">Add to Cart</button>
+                </div>
+                <div class="store-item">
+                    <img src="101.jpg" alt="Gray Sando">
+                    <h3>Gray Sando</h3>
+                    <p>P200.00</p>
+                 
+                    <input type="number" value="1" min="1" max="20" id="Gray Sando-quantity" style="width: 50px;">
+                    <button onclick="addToCart('Gray Sando', 200, parseInt(document.getId('Gray Sando-quantity').value))">Add to Cart</button>
+                </div>
+                <div class="store-item">
+                    <img src="102.jpg" alt="Red Sando">
+                    <h3>Red Sando</h3>
+                    <p>P250.00</p>
+                  
+                    <input type="number" value="1" min="1" max="15" id="Red Sando-quantity" style="width: 50px;">
+                    <button onclick="addToCart('Red Sando', 250, parseInt(document.getElementById('Red Sando-quantity').value))">Add to Cart</button>
+                </div>
+            </div>
+
+           
+            <div id="perfume" class="store-container">
+                <div class="store-item">
+                    <img src="103.jpg" alt="Bvlgari">
+                    <h3>Bvlgari</h3>
+                    <p>P2000.00</p>
+                   
+                    <input type="number" value="1" min="1" max="5" id="Bvlgari-quantity" style="width: 50px;">
+                    <button onclick="addToCart('Bvlgari', 2000, parseInt(document.getElementById('Bvlgari-quantity').value))">Add to Cart</button>
+                </div>
+                <div class="store-item">
+                    <img src="104.jpg" alt="Dolce & Gabanna">
+                    <h3>Dolce & Gabanna</h3>
+                    <p>P1800.00</p>
+                   
+                    <input type="number" value="1" min="1" max="7" id="Dolce & Gabanna-quantity" style="width: 50px;">
+                    <button onclick="addToCart('Dolce & Gabanna', 1800, parseInt(document.getElementById('Dolce & Gabanna-quantity').value))">Add to Cart</button>
+                </div>
+                <div class="store-item">
+                    <img src="105.jpg" alt="Gucci Perfume">
+                    <h3>Gucci Perfume</h3>
+                    <p>P2200.00</p>
+                
+                    <input type="number" value="1" min="1" max="4" id="Gucci Perfume-quantity" style="width: 50px;">
+                    <button onclick="addToCart('Gucci Perfume', 2200, parseInt(document.getElementById('Gucci Perfume-quantity').value))">Add to Cart</button>
+                </div>
+                <div class="store-item">
+                    <img src="106.jpg" alt="Dior">
+                    <h3>Dior</h3>
+                    <p>P2300.00</p>
+                  
+                    <input type="number" value="1" min="1" max="6" id="Dior-quantity" style="width: 50px;">
+                    <button onclick="addToCart('Dior', 2300, parseInt(document.getElementById('Dior-quantity').value))">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Toys -->
+            <div id="toys" class="store-container">
+                <div class="store-item">
+                    <img src="107.jpg" alt="Lego">
+                    <h3>Lego</h3>
+                    <p>P500.00</p>
+                  
+                    <input type="number" value="1" min="1" max="30" id="Lego-quantity" style="width: 50px;">
+                    <button onclick="addToCart('Lego', 500, parseInt(document.getElementById('Lego-quantity').value))">Add to Cart</button>
+                </div>
+                <div class="store-item">
+                    <img src="108.jpg" alt="Trucks">
+                    <h3>Trucks</h3>
+                    <p>P200.00</p>
+                   
+                    <input type="number" value="1" min="1" max="25" id="Trucks-quantity" style="width: 50px;">
+                    <button onclick="addToCart('Trucks', 200, parseInt(document.getElementById('Trucks-quantity').value))">Add to Cart</button>
+                </div>
+                <div class="store-item">
+                    <img src="109.jpg" alt="Basketball">
+                    <h3>Cars</h3>
+                    <p>P300.00</p>
+                   
+                    <input type="number" value="1" min="1" max="35" id="Cars-quantity" style="width: 50px;">
+                    <button onclick="addToCart('Cars', 300, parseInt(document.getElementById('Cars-quantity').value))">Add to Cart</button>
+                </div>
+                <div class="store-item">
+                    <img src="110.jpg" alt="Cars">
+                    <h3>Basketball</h3>
+                    <p>P250.00</p>
+                    
+                    <input type="number" value="1" min="1" max="20" id="Basketball-quantity" style="width: 50px;">
+                    <button onclick="addToCart('Basketball', 250, parseInt(document.getElementById('Basketball-quantity').value))">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+       <div class="right-container">
+            <div class="cart">
+                <h2>Cart</h2>
+                <div id="cart-list"></div>
+                <p>Total Items: <span id="total-items">0</span></p>
+                <p>Total Price: <span id="total-price">0.00</span></p>           
+                <input type="number" id="paidAmount" placeholder="Enter Paid Amount">
+                <button onclick="checkout()">Checkout</button><br>
+				  
+                <br>
+             <div>
+   <div>
+    <label for="discount">Select Discount:</label>
+    <select id="discount" onchange="updateSelectedDiscount()">
+        <option value="none">None</option>
+        <option value="pwd">PWD</option>
+        <option value="senior">Senior Citizen</option>
+        <option value="student">Student</option>
+    </select>
+</div>
+        </div>
+
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+                <div id="order-list"></div>
+			
+            </div>
+        <div>	 <a href="page2.html">Manage Stocks</a> </div>
+		</div>
+		
+			 
+    </div>
+	<div class="back-link">
+        <a href="index.html">Back to Website</a>
+    </div>
+
+</body>
+<script>
+    function updateSelectedDiscount() {
+        selectedDiscount = document.getElementById("discount").value;
+    }
+
+    function checkout() {
+        const paidAmount = parseFloat(document.getElementById("paidAmount").value);
+        let totalPrice = parseFloat(document.getElementById("total-price").innerText);
+
+        if (paidAmount < totalPrice) {
+            alert('Insufficient Amount.');
+            return;
+        }
+
+        totalPrice = applyDiscount(totalPrice);
+
+        const change = paidAmount - totalPrice;
+        alert(`Total Change: P${change.toFixed(2)}.`);
+
+        cart = [];
+        updateCart();
+        updateOrderList();
+    }
+</script>
+</html>
